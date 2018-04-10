@@ -8,7 +8,7 @@ import xlrd
 
 
 class ExcelUtil(object):
-    def __init__(self, excelPath, sheetName):
+    def __init__(self, excelPath, sheetName="Sheet1"):
         self.data = xlrd.open_workbook(excelPath)
         self.table = self.data.sheet_by_name(sheetName)
         # 获取第一行作为 key 值
@@ -19,6 +19,7 @@ class ExcelUtil(object):
         self.colNum = self.table.ncols
 
     def dict_data(self):
+        """返回的是一个list"""
         if self.rowNum <= 1:
             print("总行数小于 1")
         else:
@@ -39,4 +40,12 @@ if __name__ == "__main__":
     filepath = r"D:\Workspace\InterfaceTestFramework\data\demo_api.xlsx"
     sheetName = "Sheet1"
     data = ExcelUtil(filepath, sheetName)
-    print(data.dict_data())
+    d = data.dict_data()
+    print(type(d))
+    print(data.dict_data())  # 打印Excel所有内容
+    print(d[0])
+    dd = d[0]
+    print(type(dd))
+    print(dd['id'])
+    print(d[2])
+

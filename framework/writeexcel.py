@@ -1,5 +1,5 @@
 # coding:utf-8
-from openpyxl import load_workbook
+from openpyxl import load_workbook,Workbook
 import openpyxl
 
 
@@ -34,16 +34,39 @@ class Write_excel(object):
         self.filename = filename
         self.wb = load_workbook(self.filename)
         self.ws = self.wb.active  # 激活sheet
+        self.sheetnames = self.wb.get_sheet_names()  # 获得表单名字
 
     def write(self, row_n, col_n, value):
         '''写入数据，如(2,3，"hello"),第二行第三列写入数据"hello"'''
-        self.ws.cell(row_n, col_n).value = value
+        num = row_n+col_n
+        self.ws[num] = value
+        # self.ws.cell(row_n, col_n).value = value
         self.wb.save(self.filename)
+        self.wb.close()
+
+    def read1(self, row_n, col_n):
+        """读取数据 row_n = 1  读取第一行, col_n=5 第五列"""
+        self.sheet = self.wb.get_sheet_by_name(self.sheetnames[0])
+        return self.sheet.cell(row=row_n, column=col_n).value
 
 if __name__ == "__main__":
-    # copy_excel("debug_api.xlsx", "test111.xlsx")
-    wt = Write_excel("test111.xlsx")
-    wt.write(1, 1, "HELLEOP")
-    # wt.write(4, 6, "HELLEOP")
+    # copy_excel("debug_api.xlsx", "test115.xlsx")
+    wt = Write_excel(r"D:/Workspace/InterfaceTestFramework/data/demo_api.xlsx")
+    wt.write("A", "2", "HELLEOP")
+    wt.write("B", "6", "HELLEOP")
+    print(wt.read1(2,3))
+
+
+    # workbook_ = load_workbook(u"debug_api.xlsx")
+    # sheetnames = workbook_.get_sheet_names()  # 获得表单名字
+    # print(sheetnames)
+    # sheet = workbook_.get_sheet_by_name(sheetnames[0])
+    # print(sheet.cell(row=3, column=3).value)
+    # sheet['A1'] = '47'
+    # workbook_.save(u"debug_api.xlsx_new.xlsx")
+    # wb = Workbook()
+    # ws = wb.active
+    # ws['A1'] = 4
+    # wb.save("新歌检索失败.xlsx")
 
 
