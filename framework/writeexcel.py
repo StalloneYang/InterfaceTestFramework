@@ -38,11 +38,8 @@ class Write_excel(object):
 
     def write(self, row_n, col_n, value):
         '''写入数据，如(2,3，"hello"),第二行第三列写入数据"hello"'''
-        num = row_n+col_n
-        self.ws[num] = value
-        # self.ws.cell(row_n, col_n).value = value
+        self.ws.cell(row=row_n, column=col_n).value = value  #  写入Excel
         self.wb.save(self.filename)
-        self.wb.close()
 
     def read1(self, row_n, col_n):
         """读取数据 row_n = 1  读取第一行, col_n=5 第五列"""
@@ -52,21 +49,13 @@ class Write_excel(object):
 if __name__ == "__main__":
     # copy_excel("debug_api.xlsx", "test115.xlsx")
     wt = Write_excel(r"D:/Workspace/InterfaceTestFramework/data/demo_api.xlsx")
-    wt.write("A", "2", "HELLEOP")
-    wt.write("B", "6", "HELLEOP")
-    print(wt.read1(2,3))
-
-
-    # workbook_ = load_workbook(u"debug_api.xlsx")
-    # sheetnames = workbook_.get_sheet_names()  # 获得表单名字
-    # print(sheetnames)
-    # sheet = workbook_.get_sheet_by_name(sheetnames[0])
-    # print(sheet.cell(row=3, column=3).value)
-    # sheet['A1'] = '47'
-    # workbook_.save(u"debug_api.xlsx_new.xlsx")
-    # wb = Workbook()
-    # ws = wb.active
-    # ws['A1'] = 4
-    # wb.save("新歌检索失败.xlsx")
-
-
+    tt = {"er": '5',"e":'34'}
+    try:
+        wt.write(2, 2, "test")
+        wt.write(2, 3, "HELLEOP")
+        print(wt.read1(2,2))
+        print(wt.read1(2,3))
+    except ValueError:
+        print("写入Excel的值错误，错误为：{}".format(ValueError))
+    except Exception as msg:
+        print("不可预知的错误：{}".format(msg))

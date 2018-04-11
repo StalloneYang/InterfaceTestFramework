@@ -28,6 +28,7 @@ class ExcelUtil(object):
             for i in range(self.rowNum - 1):
                 s = {}
                 # 从第二行取对应 values 值
+                s['rowNum'] = i + 2  # 从Excel第二行读取
                 values = self.table.row_values(j)
                 for x in range(self.colNum):
                     s[self.keys[x]] = values[x]

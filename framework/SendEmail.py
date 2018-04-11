@@ -6,6 +6,7 @@ import time
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+# 如果报告取的不是HTML格式的，邮件报告没有内容，只显示BK。保证取对报告HMTL格式
 reportPath = os.path.join(os.getcwd(), 'testReports')  # 测试报告的路径
 # reportPath = os.path.join(os.path.dirname(os.getcwd()), 'testReports')  # 如果只运行当前脚本，用这个测试报告的路径
 print("打印路径：")
@@ -16,7 +17,8 @@ class SendMail(object):
 
         dirs = os.listdir(reportPath)
         dirs.sort()
-        newreportname = dirs[-1]
+        print(dirs)
+        newreportname = dirs[-2:-1][0]  # 取倒数第二个字符串
         print('The new report name: {0}'.format(newreportname))  # 打印最新报告名称
         _reportPath = os.path.join(reportPath, newreportname)
         print(_reportPath)
@@ -29,9 +31,7 @@ class SendMail(object):
         psw = "ajkzintnanbsdjed"     # 密码（qq邮箱是授权码）
         smtp_server = "smtp.qq.com"
         port = 465
-        #receiver = "2563807532@qq.com"   # 接收的邮箱
-        # recipients = ['xxxx@xxxx.com', 'xxxx@qq.com', 'xxx@xxxxx.com']  # 发送给多个人
-        recipients = ['2563807532@qq.com', '736656393@qq.com']  # 发送给一个人
+        recipients = ['2563807532@qq.com', '736656393@qq.com']  # 发送给多个人
         # print(self.get_report())   # 打印报告的路径
         '''发送最新的测试报告内容'''
         with open(self.get_report(), "rb") as f:
