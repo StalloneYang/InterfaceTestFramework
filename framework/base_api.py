@@ -78,17 +78,29 @@ def send_requests(s, testdata):
 
 def wirte_result(result, filename="result.xlsx"):
     # 返回结果的行数row_nub
-    # row_nub = result['rowNum']
-    row_nub = "A"
-    # print(result['error_code'])
-    # 写入statuscode
+    row_nub = result['rowNum']  # 写入第几行
     wt = Write_excel(filename)
-    print(result['id'])
-    wt.write(row_nub, "8", result['id'])       # 写入返回状态码statuscode,第8列
-    wt.write(row_nub, 9, result['times'])            # 耗时
-    wt.write(row_nub, 10, result['error'])            # 状态码非200时的返回信息
-    wt.write(row_nub, 12, result['result'])
-    wt.write(row_nub, 13, result['msg'])           # 抛异常
+    # wt = Write_excel(r"D:/Workspace/InterfaceTestFramework/data/demo_api.xlsx") # 测试写入路径报告
+    print(result['statuscode'])
+    request_result= result['text']  # request_result  字符串类型
+    try:
+        wt.write(row_nub, 12, request_result)            # 写入返回结果
+    except ValueError:
+        print("写入request_result不是字符串！")
+    except Exception as e:
+        print("写入Excel报错，请检查，错误为：{}" .format(e))
+
+    # request_result_ = json.loads(request_result)  # 如果取返回的相关字段，将字符串转为dict
+    # # jsoninfo = json.dumps(dictinfo)   # （dict）转为字符串
+    # print(request_result_["r"])
+    # print(request_result_["m"])
+    # print(request_result_["h"])
+    # print(request_result_["d"])
+    # dd = request_result_["d"]  # dd是dict，需转为字符串
+    # r = request_result_["r"]
+    # m = request_result_["m"]
+    # h = request_result_["h"]
+    # d = json.dumps(dd)
 
 if __name__ == "__main__":
     data = ExcelUtil("debug_api.xlsx").dict_data()
