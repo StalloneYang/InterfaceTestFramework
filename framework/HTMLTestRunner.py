@@ -790,8 +790,8 @@ class HTMLTestRunner(Template_mixin):
             status = 'none'
         return [
             (u'开始时间', startTime),
-            (u'耗时', duration),
             (u'结束时间', stopTime),
+            (u'耗时', duration),
             (u'状态', status),
         ]
 
