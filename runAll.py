@@ -1,3 +1,5 @@
+from BeautifulReport import BeautifulReport  # 新报告样式，需导入BeautifulReport
+
 from framework import HTMLTestRunner
 import os
 import unittest
@@ -27,6 +29,10 @@ if __name__ =='__main__':
     # 开始执行测试套件
     runner.run(suite)
     fp.close()
+
+    # result = BeautifulReport(suite)   # 最新的报告样式
+    # result.report(filename='测试报告', description='测试deafult报告', log_path=HtmlFile)
+
     # 测试结束之后，执行邮件发送报告
     sendMail = SendMail()
     sendMail.send()
