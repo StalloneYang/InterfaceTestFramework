@@ -8,7 +8,7 @@ import xlrd
 
 
 class ExcelUtil(object):
-    def __init__(self, excelPath, sheetName="Sheet1"):
+    def __init__(self, excelPath, sheetName="测试用例"):
         self.data = xlrd.open_workbook(excelPath)
         self.table = self.data.sheet_by_name(sheetName)
         # 获取第一行作为 key 值

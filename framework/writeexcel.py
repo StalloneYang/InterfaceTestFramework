@@ -48,7 +48,7 @@ class Write_excel(object):
 
 if __name__ == "__main__":
     # copy_excel("debug_api.xlsx", "test115.xlsx")
-    wt = Write_excel(r"D:/Workspace/InterfaceTestFramework/data/demo_api.xlsx")
+    wt = Write_excel(r"D:/Workspace/InterfaceTestFramework/data/TestCase.xlsx")
     tt = {"er": '5',"e":'34'}
     try:
         wt.write(2, 2, "test")
